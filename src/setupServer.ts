@@ -14,6 +14,7 @@ import 'express-async-errors';
 import { config } from './config';
 import applicationRoutes from './routes';
 import { CustomError, IErrorResponse } from './shared/globals/helpers/error-handler';
+import { SocketIOPostHandler } from './shared/sockets/post';
 
 const SERVER_PORT = 5003;
 const log: Logger = config.createLogger('server');
@@ -110,5 +111,9 @@ export class ChattyServer {
     });
   }
 
-  private socketIOConnections(io: Server): void {}
+  private socketIOConnections(io: Server): void {
+    const postSocketHandler: SocketIOPostHandler = new SocketIOPostHandler(io);
+
+    postSocketHandler.listen();
+  }
 }
