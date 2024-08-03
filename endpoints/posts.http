@@ -1,0 +1,99 @@
+@baseUrl = http://localhost:5003
+@urlPath = api/v1
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/all/<page-number>
+# GET {{baseUrl}}/{{urlPath}}/post/all/1
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/images/<page-number>
+# GET {{baseUrl}}/{{urlPath}}/post/images/1
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+POST {{baseUrl}}/{{urlPath}}/post
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+# Privacy - Public | Private | Followers
+# Feelings - like | love | wow | happy | sad | angry
+
+# {
+#   "post": "",
+#   "bgColor": "<any-hex-color-code>",
+#   "privacy": "Public",
+#   "gifUrl": "",
+#   "profilePicture": "<cloudinary-user-profile-picture-url>",
+#   "feelings": ""
+# }
+
+{
+  "post": "Привет всем! Надеюсь, у вас отличный день!",
+  "bgColor": "#34a853",
+  "privacy": "Public",
+  "gifUrl": "https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif",
+  "profilePicture": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+  "feelings": "happy"
+}
+
+
+###
+POST {{baseUrl}}/{{urlPath}}/post/image/post
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "post": "",
+  "bgColor": "",
+  "privacy": "",
+  "gifUrl": "",
+  "profilePicture": "",
+  "feelings": "",
+  "image": "<base64-encoded-string>"
+}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/post/<postId>
+Content-Type: application/json
+Accept: application/json
+withCredentials: true,
+
+{
+  "post": "",
+  "bgColor": "",
+  "privacy": "",
+  "gifUrl": "",
+  "profilePicture": "<cloudinary-user-profile-picture-url>",
+  "feelings": ""
+}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/post/image/<postId>
+Content-Type: application/json
+Accept: application/json
+withCredentials: true,
+
+{
+  "post": "",
+  "bgColor": "",
+  "privacy": "",
+  "gifUrl": "",
+  "profilePicture": "<cloudinary-user-profile-picture-url>",
+  "feelings": "",
+  "imgId": "<imgId-form-post>",
+  "imgVersion": "<imgVersion-for-post>",
+  "image": "<base64-encoded-string>"
+}
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/post/<postId>
+Content-Type: application/json
+Accept: application/json
+withCredentials: true

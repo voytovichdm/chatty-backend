@@ -23,10 +23,10 @@ export class SignIn {
     if (!passwordsMatch) {
       throw new BadRequestError('Invalid credentials');
     }
-
+    const user: IUserDocument = await userService.getUserByAuthId(`${existingUser._id}`);
     const userJwt: string = JWT.sign(
       {
-        userId: existingUser._id,
+        userId: user._id,
         uId: existingUser.uId,
         email: existingUser.email,
         username: existingUser.username,
@@ -34,7 +34,18 @@ export class SignIn {
       },
       config.JWT_TOKEN!
     );
+
     req.session = { jwt: userJwt };
-    res.status(HTTP_STATUS.OK).json({ message: 'User login successfully', user: existingUser, token: userJwt });
+    
+    const userDocument: IUserDocument = {
+      ...user,
+      authId: existingUser!._id,
+      username: existingUser!.username,
+      email: existingUser!.email,
+      avatarColor: existingUser!.avatarColor,
+      uId: existingUser!.uId,
+      createdAt: existingUser!.createdAt
+    } as IUserDocument;
+    res.status(HTTP_STATUS.OK).json({ message: 'User login successfully', user: userDocument, token: userJwt });
   }
 }

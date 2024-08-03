@@ -14,7 +14,6 @@ import { emailQueue } from '../../../shared/globals/services/queues/email.queue'
 import { IResetPasswordParams } from '../user/interfaces/user.interface';
 import { resetPasswordTemplate } from '../../../shared/globals/services/emails/templates/reset-password/reset-password-template';
 
-
 export class Password {
   @joiValidation(emailSchema)
   public async create(req: Request, res: Response): Promise<void> {
