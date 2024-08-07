@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { authMockRequest, authMockResponse } from '../../../../mocks/auth.mock';
 import { SignOut } from '../signout';
 
+
 const USERNAME = 'Manny';
 const PASSWORD = 'manny1';
 

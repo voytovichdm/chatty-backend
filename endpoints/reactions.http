@@ -1,0 +1,49 @@
+@baseUrl = http://localhost:5003
+@urlPath = api/v1
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/66afda6bf05ef495a1e4f3a0
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/single/reaction/username/Admina/66afda6bf05ef495a1e4f3a0
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/username/Admina
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+POST {{baseUrl}}/{{urlPath}}/post/reaction
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+# type - like | love | wow | happy | sad | angry
+# previousReaction (if it exist) - like | love | wow | happy | sad | angry
+# postReactions - increment new reaction by 1 and decrement previous reaction by 1
+
+{
+  "userTo": "66afb3e1109f1821f3875c6b",
+  "postId": "66afda6bf05ef495a1e4f3a0",
+  "type": "wow",
+  "previousReaction": "",
+  "postReactions": {"like": 0,"love": 0,"happy": 0,"sad": 0,"wow": 1,"angry": 0},
+  "profilePicture": "https://res.cloudinary.com/demo/image/upload/sample.jpg"
+}
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/post/reaction/66afda6bf05ef495a1e4f3a0/wow/{"like": 0,"love": 0,"happy": 0,"sad": 0,"wow": 0,"angry": 0}
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+

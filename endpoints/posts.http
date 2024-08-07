@@ -2,14 +2,14 @@
 @urlPath = api/v1
 
 ###
-GET {{baseUrl}}/{{urlPath}}/post/all/<page-number>
+GET {{baseUrl}}/{{urlPath}}/post/all/1
 # GET {{baseUrl}}/{{urlPath}}/post/all/1
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
 ###
-GET {{baseUrl}}/{{urlPath}}/post/images/<page-number>
+GET {{baseUrl}}/{{urlPath}}/post/images/1
 # GET {{baseUrl}}/{{urlPath}}/post/images/1
 Content-Type: application/json
 Accept: application/json
@@ -24,24 +24,14 @@ withCredentials: true
 # Privacy - Public | Private | Followers
 # Feelings - like | love | wow | happy | sad | angry
 
-# {
-#   "post": "",
-#   "bgColor": "<any-hex-color-code>",
-#   "privacy": "Public",
-#   "gifUrl": "",
-#   "profilePicture": "<cloudinary-user-profile-picture-url>",
-#   "feelings": ""
-# }
-
 {
-  "post": "Привет всем! Надеюсь, у вас отличный день!",
+  "post": "Hello1!",
   "bgColor": "#34a853",
   "privacy": "Public",
   "gifUrl": "https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif",
   "profilePicture": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
   "feelings": "happy"
 }
-
 
 ###
 POST {{baseUrl}}/{{urlPath}}/post/image/post
@@ -50,13 +40,13 @@ Accept: application/json
 withCredentials: true
 
 {
-  "post": "",
-  "bgColor": "",
-  "privacy": "",
-  "gifUrl": "",
-  "profilePicture": "",
-  "feelings": "",
-  "image": "<base64-encoded-string>"
+  "post": "Post image 1",
+  "bgColor": "#34a853",
+  "privacy": "Public",
+  "gifUrl": "https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif",
+  "profilePicture": "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+  "feelings": "happy",
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo0QTRCNzM0NjAyMTgxMUU3OTkyNkI0QTVENTkzQTBDMiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo0QTRCNzM0NzAyMTgxMUU3OTkyNkI0QTVENTkzQTBDMiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjRBNEI3MzQ0MDIxODExRTc5OTI2QjRBNUQ1OTNBMEMyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjRBNEI3MzQ1MDIxODExRTc5OTI2QjRBNUQ1OTNBMEMyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+PHAjhQAABfhJREFUeNrs3U1oHGUc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"
 }
 
 ###
@@ -93,7 +83,7 @@ withCredentials: true,
 }
 
 ###
-DELETE {{baseUrl}}/{{urlPath}}/post/<postId>
+DELETE {{baseUrl}}/{{urlPath}}/post/66afd04c4b04730892696e2c
 Content-Type: application/json
 Accept: application/json
 withCredentials: true

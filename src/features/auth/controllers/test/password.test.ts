@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
-import { authMock, authMockRequest, authMockResponse } from '../../../../mocks/auth.mock';
-import { CustomError } from '../../../../shared/globals/helpers/error-handler';
-import { Password } from '../password';
-import { authService } from '../../../../shared/globals/services/db/auth.service';
-import { emailQueue } from '../../../../shared/globals/services/queues/email.queue';
 
+import { authMock, authMockRequest, authMockResponse } from '../../../../mocks/auth.mock';
+import { Password } from '../password';
+import { CustomError } from '../../../../shared/globals/helpers/error-handler';
+import { authService } from '../../../../shared/services/db/auth.service';
+import { emailQueue } from '../../../../shared/services/queues/email.queue';
 
 const WRONG_EMAIL = 'test@email.com';
 const CORRECT_EMAIL = 'manny@me.com';
 const INVALID_EMAIL = 'test';
 const CORRECT_PASSWORD = 'manny';
 
-jest.mock('../../../../shared/globals/services/queues/auth.queue');
-jest.mock('../../../../shared/globals/services/queues/email.queue');
-jest.mock('../../../../shared/globals/services/db/auth.service');
-jest.mock('../../../../shared/globals/services/emails/mail.transport');
+jest.mock('@service/queues/base.queue');
+jest.mock('@service/queues/email.queue');
+jest.mock('@service/db/auth.service');
+jest.mock('@service/emails/mail.transport');
 
 describe('Password', () => {
   beforeEach(() => {

@@ -1,18 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
+
 import * as cloudinaryUploads from '../../../../shared/globals/helpers/cloudinary-upload';
 import { authMock, authMockRequest, authMockResponse } from '../../../../mocks/auth.mock';
-import { SignUp } from '../signup';
 import { CustomError } from '../../../../shared/globals/helpers/error-handler';
-import { authService } from '../../../../shared/globals/services/db/auth.service';
-import { UserCache } from '../../../../shared/globals/services/redis/user.cache';
+import { SignUp } from '../signup';
+import { authService } from '../../../../shared/services/db/auth.service';
+import { UserCache } from '../../../../shared/services/redis/user.cache';
+
+
 
 jest.useFakeTimers();
-jest.mock('../../../../shared/globals/services/queues/base.queue');
-jest.mock('../../../../shared/globals/services/redis/user.cache');
-jest.mock('../../../../shared/globals/services/queues/user.queue');
-jest.mock('../../../../shared/globals/services//queues/auth.queue');
-jest.mock('../../../../shared/globals/helpers/cloudinary-upload');
+jest.mock('@service/queues/base.queue');
+jest.mock('@service/redis/user.cache');
+jest.mock('@service/queues/user.queue');
+jest.mock('@service/queues/auth.queue');
+jest.mock('@global/helpers/cloudinary-upload');
 
 describe('SignUp', () => {
   beforeEach(() => {

@@ -3,20 +3,19 @@ import { ObjectId } from 'mongodb';
 import { UploadApiResponse } from 'cloudinary';
 import HTTP_STATUS from 'http-status-codes';
 import JWT from 'jsonwebtoken';
-import { omit } from 'lodash';
 
-import { BadRequestError } from '../../../shared/globals/helpers/error-handler';
+import { UserCache } from '../../../shared/services/redis/user.cache';
 import { joiValidation } from '../../../shared/globals/decorators/joi-validation.decorators';
 import { signupSchema } from '../schemes/signup';
 import { IAuthDocument, ISignUpData } from '../interfaces/auth.interface';
-import { authService } from '../../../shared/globals/services/db/auth.service';
+import { authService } from '../../../shared/services/db/auth.service';
+import { BadRequestError } from '../../../shared/globals/helpers/error-handler';
 import { Helpers } from '../../../shared/globals/helpers/helpers';
 import { uploads } from '../../../shared/globals/helpers/cloudinary-upload';
-import { IUserDocument } from '../user/interfaces/user.interface';
-import { UserCache } from '../../../shared/globals/services/redis/user.cache';
+import { IUserDocument } from '../../../features/user/interfaces/user.interface';
+import { authQueue } from '../../../shared/services/queues/auth.queue';
+import { userQueue } from '../../../shared/services/queues/user.queue';
 import { config } from '../../../config';
-import { authQueue } from '../../../shared/globals/services/queues/auth.queue';
-import { userQueue } from '../../../shared/globals/services/queues/user.queue';
 
 const userCache: UserCache = new UserCache();
 
@@ -43,6 +42,7 @@ export class SignUp {
       password,
       avatarColor
     });
+
     const result: UploadApiResponse = (await uploads(avatarImage, `${userObjectId}`, true, true)) as UploadApiResponse;
     if (!result?.public_id) {
       throw new BadRequestError('File upload: Error occurred. Try again.');
@@ -58,7 +58,9 @@ export class SignUp {
     userQueue.addUserJob('addUserToDB', { value: userDataForCache });
 
     const userJwt: string = SignUp.prototype.signToken(authData, userObjectId);
+
     req.session = { jwt: userJwt };
+    
     res.status(HTTP_STATUS.CREATED).json({ message: 'User created successfully', user: userDataForCache, token: userJwt });
   }
 
