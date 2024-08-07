@@ -1,14 +1,13 @@
 import { Request, Response } from 'express';
+import { IUserDocument } from '../../../../features/user/interfaces/user.interface';
 import { authMockRequest, authMockResponse, authUserPayload } from '../../../../mocks/auth.mock';
-import { UserCache } from '../../../../shared/globals/services/redis/user.cache';
-import { IUserDocument } from '../../user/interfaces/user.interface';
+import { UserCache } from '../../../../shared/services/redis/user.cache';
 import { CurrentUser } from '../current-user';
 import { existingUser } from '../../../../mocks/user.mock';
 
-
-jest.mock('../../../../shared/globals/services/queues/base.queue');
-jest.mock('../../../../shared/globals/services/redis/user.cache');
-jest.mock('../../../../shared/globals/services/db/user.service');
+jest.mock('@service/queues/base.queue');
+jest.mock('@service/redis/user.cache');
+jest.mock('@service/db/user.service');
 
 const USERNAME = 'Manny';
 const PASSWORD = 'manny1';

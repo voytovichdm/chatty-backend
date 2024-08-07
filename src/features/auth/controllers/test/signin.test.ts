@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
+
 import { authMock, authMockRequest, authMockResponse } from '../../../../mocks/auth.mock';
-import { CustomError } from '../../../../shared/globals/helpers/error-handler';
 import { SignIn } from '../signin';
-import { authService } from '../../../../shared/globals/services/db/auth.service';
+import { CustomError } from '../../../../shared/globals/helpers/error-handler';
+import { authService } from '../../../../shared/services/db/auth.service';
 import { Helpers } from '../../../../shared/globals/helpers/helpers';
-import { userService } from '../../../../shared/globals/services/db/user.service';
+import { userService } from '../../../../shared/services/db/user.service';
+import { mergedAuthAndUserData } from '../../../../mocks/user.mock';
+
+
 
 const USERNAME = 'Manny';
 const PASSWORD = 'manny1';
@@ -15,7 +19,7 @@ const LONG_PASSWORD = 'mathematics1';
 const LONG_USERNAME = 'mathematics';
 
 jest.useFakeTimers();
-jest.mock('../../../../shared/globals/services/queues/base.queue');
+jest.mock('@service/queues/base.queue');
 
 describe('SignIn', () => {
   beforeEach(() => {
@@ -110,14 +114,14 @@ describe('SignIn', () => {
     const res: Response = authMockResponse();
     authMock.comparePassword = () => Promise.resolve(true);
     jest.spyOn(authService, 'getAuthUserByUsername').mockResolvedValue(authMock);
-    // jest.spyOn(userService, 'getUserByAuthId').mockResolvedValue(mergedAuthAndUserData);
+    jest.spyOn(userService, 'getUserByAuthId').mockResolvedValue(mergedAuthAndUserData);
 
     await SignIn.prototype.read(req, res);
     expect(req.session?.jwt).toBeDefined();
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith({
       message: 'User login successfully',
-      user: authMock, //mergedAuthAndUserData,
+      user: mergedAuthAndUserData,
       token: req.session?.jwt
     });
   });

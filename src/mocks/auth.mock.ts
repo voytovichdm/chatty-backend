@@ -3,7 +3,6 @@
 import { Response } from 'express';
 import { AuthPayload, IAuthDocument } from '../features/auth/interfaces/auth.interface';
 
-
 export const authMockRequest = (sessionData: IJWT, body: IAuthMock, currentUser?: AuthPayload | null, params?: any) => ({
   session: sessionData,
   body,
